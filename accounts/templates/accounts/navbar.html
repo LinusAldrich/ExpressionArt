@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" href="/static/Logo_colored.png" type="image/icon type">
+        <title>Navbar</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+        <script src="https://kit.fontawesome.com/4c0ccb5518.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{% static 'navbar.css' %}">
+    </head>
+
+    <style>
+        .diary:hover{
+            color: yellow;
+        }
+        .collage:hover{
+            color: red;
+        }
+        .canvas:hover{
+            color: blue;
+        }
+        .logout{
+            border: 1px solid rgb(255, 88, 88);
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: rgb(255, 88, 88);
+        }
+        .logout:hover{
+            color: black;
+        }
+        .user{
+            border: 1px solid white;
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: white;
+            color: black;
+        }
+        .user:hover{
+            font-weight: 100;    
+        }
+    </style>
+    
+    <body>
+        <div class="container">
+            <nav>
+                <input type="checkbox" id="nav" class="hidden">
+                <label for="nav" class="nav-btn">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </label>
+                <div class="logo">
+                    <a href="{% url 'home' %}">ExpressionArt</a>
+                </div>
+                <div class="nav-wrapper">
+                    <ul>
+                        <li><a href="{% url 'diarys' request.user.id %}" class="diary">Diary</a></li>
+                        <li><a href="{% url 'collages' request.user.id %}" class="collage">Collage</a></li>
+                        <li><a href="{% url 'canvass' request.user.id %}" class="canvas">Canvas</a></li>
+                        <li><a href="{% url 'clients' request.user.id %}" class="user" class="user">{{request.user}}</a></li>
+                        <li><a class="logout" href="{% url 'logout' %}" class="logout">Logout</a></li>
+                    </ul>
+
+                </div>
+            </nav>
+        </div>
+    </body>
+</html>

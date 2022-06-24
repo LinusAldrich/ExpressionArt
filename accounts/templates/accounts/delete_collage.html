@@ -1,0 +1,155 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main.css' %}">
+<br>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        
+    }
+    
+    body {
+        min-height:100vh;
+        background:#202221;
+        font-family: 'Poppins', sans-serif;
+        
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 10%; 
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .logo {
+        cursor: pointer;
+        margin-right: auto;
+    }
+
+    .nav__links a,
+    .overlay__content a {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        color: white;
+        text-decoration: none;
+        font-size: 1rem;
+     }
+
+    .nav__links {
+        list-style: none;
+        display: flex;
+        
+    }
+
+    .nav__links li {
+        display: inline-block;
+        padding: 0px 20px;
+        
+    }
+
+    .nav__links li a {
+        transition: color 0.3s ease 0s;
+    }
+
+
+    .btn button {
+        padding: 9px 15px;
+        background: #222;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background-color 0.3s ease 0s;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 500;
+        color: white;
+        margin-left: 30px;
+    }
+
+    .btn button i{
+        color: white;
+    }
+
+    .btn button:hover {
+        background: #202221;
+        color: #fff;
+    }
+
+    </style>
+    
+    <!-- diary style -->
+    <style>
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            padding-top: 20px;
+            color: #fff;
+        }
+
+        span {
+            color: green;
+        }
+
+        .cfn {
+            margin: 100px 845px;
+        }
+
+        #cancel {
+            background: #222;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .cfn input[type="submit"] {
+            background: #222;
+            color:white;
+            border: 2px solid white;
+            width: 100px;
+            cursor:pointer;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 1px;
+            padding: 10px;
+            border-radius: 35px;
+            margin-left: 10px;
+        }
+
+
+        #cancel {
+            background: #dc3545;
+            color:#fff;
+            width: 100px;
+            cursor:pointer;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 1px;
+            padding: 10px;
+            border-radius: 35px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            margin-left: 10px; 
+        }
+    </style>
+
+<h1>Are you sure you want to delete <span>{{name}}?</span></h1>
+<form method="POST" action="{% url 'delete_collage' name.id %}">
+    {% csrf_token %}
+    <div class="container">
+        <div class="cfn">
+            <a href="{% url 'home' %}"><input id="cancel" type="button" value="Cancel"></a>
+            <input id="confirm" type="submit" value="Confirm">
+        </div>
+    </div>
+</form>
+
+{% endblock %}

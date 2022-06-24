@@ -1,0 +1,21 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main.css' %}">
+
+<br>
+<a class="btn_cd" href="{% url 'create_diarys' user.id %}"><button>Create Diary</button></a>
+{% for diary in diarys %}
+<div class="containerz">
+    <h1>{{diary.diary_name}}</h1>
+    <p class="diary-content">{{diary.diary_description}}</p>
+    <span id='date-time'>{{diary.date_created}}</span>
+    <p>
+        <a class="btn_dd" href="{% url 'update_diarys' diary.id %}"><button>Update Diary</button></a>
+        <a class="btn_dd" href="{% url 'delete_diarys' diary.id %}"><button>Delete Diary</button></a>
+    </p>  
+</div>   
+<br>
+{% endfor %}
+
+{% endblock%}

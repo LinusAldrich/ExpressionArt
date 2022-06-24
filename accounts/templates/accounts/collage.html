@@ -1,0 +1,20 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main.css' %}">
+<br>
+
+<a class="btn_cd" href="{% url 'collage_creator' user.id %}"><button>Create Collage</button></a>
+{% for collage in collages %}
+<div class="containerz ">
+    <h1>{{collage.collage_name}}</h1>
+    <img src="/images/{{collage.collage_pic}}" width="500" heigh="500" class="canva_pic">
+    <span id='date-time'>{{collage.date_created}}</span>
+    <p>
+        <a class="btn_dd" href="{% url 'delete_collage' collage.id %}"><button>Delete Canvas</button></a>
+    </p>  
+</div>   
+<br>
+{% endfor %}
+
+{% endblock %}

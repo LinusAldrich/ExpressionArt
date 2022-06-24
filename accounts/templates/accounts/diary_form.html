@@ -1,0 +1,38 @@
+<br>
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'create_diary.css' %}">
+
+
+
+
+    
+</style>
+
+<br>
+<br>
+<br>
+<form action="" method="POST">
+    {% csrf_token %}
+    <p style="display: none; ">{{form.user}}</p>
+    <div class="containerz">
+      <div class="diary">
+          <label for="title">Diary Name: </label>
+          {{form.diary_name}}
+        </div>
+  
+      <div class="diary">
+          <p>Description: </p><br>
+          {{form.diary_description}}
+        </div>
+  
+      <div class="cfn" style="margin-top: -40px;">
+          <input type="submit" value="Confirm">
+      </div>
+  </div>
+  </form>
+
+  <br>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'main.css' %}">
+<style>
+    
+</style>
+<br>
+    <a class="btn_cd" href="{% url 'canvas_creator' user.id %}"><button>Create Canvas</button></a>
+{% for canva in canvass %}
+<div class="containerz ">
+    <h1>{{canva.canvas_name}}</h1>
+    <img src="/images/{{canva.canvas_pic}}" width="500" heigh="500" class="canva_pic">
+    <span id='date-time'>{{canva.date_created}}</span>
+    <p>
+        <a class="btn_dd" href="{% url 'delete_canvas' canva.id %}"><button>Delete Canvas</button></a>
+        <a class="btn_dd" href="{% url 'edit_canvas' canva.id %}"><button>Edit Canvas</button></a>
+    </p>  
+</div>   
+<br>
+{% endfor %}
+
+{% endblock %}
+
+{% comment %} {% url 'update_diarys' diary.id %} {% endcomment %}

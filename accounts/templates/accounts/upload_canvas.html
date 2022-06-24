@@ -1,0 +1,215 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  #id_diary_description{
+    width: 90%;
+    height: 150px;
+    padding: 8px 18px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+
+  form{
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+</style>
+
+<style>
+  * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+  }
+  
+  body {
+      min-height:100vh;
+      background:#202221;
+      font-family: 'Poppins', sans-serif;
+      color: white;
+  }
+
+  header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 10%; 
+      backdrop-filter: blur(5px);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .logo {
+      cursor: pointer;
+      margin-right: auto;
+  }
+
+  .nav__links a,
+  .overlay__content a {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      text-decoration: none;
+      font-size: 1rem;
+   }
+
+  .nav__links {
+      list-style: none;
+      display: flex;
+  }
+
+  .nav__links li {
+      display: inline-block;
+      padding: 0px 20px;
+  }
+
+  .nav__links li a {
+      transition: color 0.3s ease 0s;
+  }
+
+  .nav__links li a:hover {
+      color: #0088a9;
+  }
+
+  .btn button {
+      padding: 9px 15px;
+      background-color: rgba(26, 101, 158, 1);
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s ease 0s;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 1);
+      margin-left: 30px;
+  }
+
+  .btn button:hover {
+      background-color: rgba(26, 101, 158, 0.8);
+  }
+  
+  .btn button i{
+      color: #fff;
+  }
+
+  </style>
+  
+  <!-- diary style -->
+  <style>
+
+    .containerz {
+        position: relative;
+        width: 1000px;
+        height: 800px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        margin: 20px auto;
+        padding: 50px;
+
+    }
+
+    .diary input, textarea {
+        width: 500px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        outline: none;
+        padding: 10px;
+        border-radius: 35px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 16px;
+        letter-spacing: 1px;
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 50px;
+        resize: none;
+    }
+
+    #id_diary_name {
+        margin-left: 10px;
+    }
+
+    #id_diary_description {
+        position: relative;
+        height: 500px;
+        width: 500px;
+        margin-left: 115px;
+        width: 500px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        outline: none;
+        padding: 10px;
+        border-radius: 35px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 16px;
+        letter-spacing: 1px;
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 50px;
+        resize: none;
+    }
+
+    .cfn {
+        margin-right: auto;
+    }
+
+    .cfn input[type="submit"] {
+        background: #004e89;
+        color:#fff;
+        max-width: 100px;
+        cursor:pointer;
+        margin-bottom: 20px;
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: 1px;
+        padding: 10px;
+        border-radius: 35px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-right: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+</style>
+
+<br>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p style="display:none; ">{{form.user}}
+    <div class="containerz">
+        <div class="diary">
+          <label for="title">Canvas Name: </label>
+          {{form.canvas_name}}
+        </div>
+  
+      <div class="diary">
+          <p>Canvas Pic: </p><br>
+          {{form.canvas_pic}}
+        </div>
+  
+      <div class="cfn" style="margin-top: -40px;">
+        <input type="submit" value="Confirm">
+      </div>
+  </div>
+  </form>
+{% endblock %}

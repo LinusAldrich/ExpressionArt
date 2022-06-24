@@ -1,0 +1,629 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+</script>
+
+<body onload="pencil()">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <style>
+        .canvas-maker {
+            padding-left: 50px;
+        }
+    </style>
+    <div class="canvas-maker">
+        <p>
+            <table>
+                <tr>
+                    <td>
+                        <fieldset id="toolset">
+                            <br>
+                            <br>
+                            <button id="penciltool" type="button" style="height: 25px; width: 100px;"
+                                onclick="pencil()">Pencil</button>
+                            <br>
+                            <br>
+                            <br>
+                            <button id="linetool" type="button" style="height: 25px; width: 100px;"
+                                onclick="line()">Line</button>
+                            <br>
+                            <br>
+                            <br>
+                            <button id="rectangletool" type="button" style="height: 25px; width: 100px;"
+                                onclick="rectangle()">Rectangle</button>
+                            <br>
+                            <br>
+                            <br>
+                            <button id="circletool" type="button" style="height: 25px; width: 100px;"
+                                onclick="circle()">Circle</button>
+                            <br>
+                            <br>
+                            <br>
+                            <button id="erasertool" type="button" style="height: 25px; width: 100px;"
+                                onclick="eraser()">Eraser</button>
+                            <br>
+                            <br>
+                            <br>
+                            <button id="resettool" type="button" style="height: 25px; width: 100px;"
+                                onclick="reset()">Reset</button>
+                        </fieldset>
+                    </td>
+                    <td>
+                        <canvas id="canvas" width="750" height="450"
+                            style="border: 5px solid #000000; left: 130px;"></canvas>
+
+
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <fieldset id="colorset">
+            <table>
+                <tr>
+                    <td><button style="height: 28px; width: 80px;" onclick="fill()">Fill</button>
+                    <td><button style="background-color: #000000; height: 20px; width: 20px;"
+                            onclick="color('#000000')"></button>
+                    <td><button style="background-color: #B0171F; height: 20px; width: 20px;"
+                            onclick="color('#B0171F')"></button>
+                    <td><button style="background-color: #DA70D6; height: 20px; width: 20px;"
+                            onclick="color('#DA70D6')"></button>
+                    <td><button style="background-color: #8A2BE2; height: 20px; width: 20px;"
+                            onclick="color('#8A2BE2')"></button>
+                    <td><button style="background-color: #0000FF; height: 20px; width: 20px;"
+                            onclick="color('#0000FF')"></button>
+                    <td><button style="background-color: #4876FF; height: 20px; width: 20px;"
+                            onclick="color('#4876FF')"></button>
+                    <td><button style="background-color: #CAE1FF; height: 20px; width: 20px;"
+                            onclick="color('#CAE1FF')"></button>
+                    <td><button style="background-color: #6E7B8B; height: 20px; width: 20px;"
+                            onclick="color('#6E7B8B')"></button>
+                    <td><button style="background-color: #00C78C; height: 20px; width: 20px;"
+                            onclick="color('#00C78C')"></button>
+                    <td><button style="background-color: #00FA9A; height: 20px; width: 20px;"
+                            onclick="color('#00FA9A')"></button>
+                    <td><button style="background-color: #00FF7F; height: 20px; width: 20px;"
+                            onclick="color('#00FF7F')"></button>
+                    <td><button style="background-color: #00C957; height: 20px; width: 20px;"
+                            onclick="color('#00C957')"></button>
+                    <td><button style="background-color: #3D9140; height: 20px; width: 20px;"
+                            onclick="color('#3D9140')"></button>
+                    <td><button style="background-color: #32CD32; height: 20px; width: 20px;"
+                            onclick="color('#32CD32')"></button>
+                    <td><button style="background-color: #00EE00; height: 20px; width: 20px;"
+                            onclick="color('#00EE00')"></button>
+                    <td><button style="background-color: #008B00; height: 20px; width: 20px;"
+                            onclick="color('#008B00')"></button>
+                    <td><button style="background-color: #76EE00; height: 20px; width: 20px;"
+                            onclick="color('#76EE00')"></button>
+                    <td><button style="background-color: #CAFF70; height: 20px; width: 20px;"
+                            onclick="color('#CAFF70')"></button>
+                    <td><button style="background-color: #FFFF00; height: 20px; width: 20px;"
+                            onclick="color('#FFFF00')"></button>
+                    <td><button style="background-color: #CDCD00; height: 20px; width: 20px;"
+                            onclick="color('#CDCD00')"></button>
+                    <td><button style="background-color: #FFF68F; height: 20px; width: 20px;"
+                            onclick="color('#FFF68F')"></button>
+                    <td><button style="background-color: #FFFACD; height: 20px; width: 20px;"
+                            onclick="color('#FFFACD')"></button>
+                    <td><button style="background-color: #FFEC8B; height: 20px; width: 20px;"
+                            onclick="color('#FFEC8B')"></button>
+                    <td><button style="background-color: #FFD700; height: 20px; width: 20px;"
+                            onclick="color('#FFD700')"></button>
+                    <td><button style="background-color: #F5DEB3; height: 20px; width: 20px;"
+                            onclick="color('#F5DEB3')"></button>
+                    <td><button style="background-color: #FFE4B5; height: 20px; width: 20px;"
+                            onclick="color('#FFE4B5')"></button>
+                    <td><button style="background-color: #EECFA1; height: 20px; width: 20px;"
+                            onclick="color('#EECFA1')"></button>
+                    <td><button style="background-color: #FF9912; height: 20px; width: 20px;"
+                            onclick="color('#FF9912')"></button>
+                    <td><button style="background-color: #8E388E; height: 20px; width: 20px;"
+                            onclick="color('#8E388E')"></button>
+                    <td><button style="background-color: #7171C6; height: 20px; width: 20px;"
+                            onclick="color('#7171C6')"></button>
+                    <td><button style="background-color: #7D9EC0; height: 20px; width: 20px;"
+                            onclick="color('#7D9EC0')"></button>
+                    <td><button style="background-color: #388E8E; height: 20px; width: 20px;"
+                            onclick="color('#388E8E')"></button>
+
+                </tr>
+                <tr>
+                    <td><button style="height: 28px; width: 80px" onclick="outline()">Outline</button>
+                    <td><button style="background-color: #71C671; height: 20px; width: 20px;"
+                            onclick="color('#71C671')"></button>
+                    <td><button style="background-color: #8E8E38; height: 20px; width: 20px;"
+                            onclick="color('#8E8E38')"></button>
+                    <td><button style="background-color: #C5C1AA; height: 20px; width: 20px;"
+                            onclick="color('#C5C1AA')"></button>
+                    <td><button style="background-color: #C67171; height: 20px; width: 20px;"
+                            onclick="color('#C67171')"></button>
+                    <td><button style="background-color: #555555; height: 20px; width: 20px;"
+                            onclick="color('#555555')"></button>
+                    <td><button style="background-color: #848484; height: 20px; width: 20px;"
+                            onclick="color('#848484')"></button>
+                    <td><button style="background-color: #F4F4F4; height: 20px; width: 20px;"
+                            onclick="color('#F4F4F4')"></button>
+                    <td><button style="background-color: #EE0000; height: 20px; width: 20px;"
+                            onclick="color('#EE0000')"></button>
+                    <td><button style="background-color: #FF4040; height: 20px; width: 20px;"
+                            onclick="color('#FF4040')"></button>
+                    <td><button style="background-color: #EE6363; height: 20px; width: 20px;"
+                            onclick="color('#EE6363')"></button>
+                    <td><button style="background-color: #FFC1C1; height: 20px; width: 20px;"
+                            onclick="color('#FFC1C1')"></button>
+                    <td><button style="background-color: #FF7256; height: 20px; width: 20px;"
+                            onclick="color('#FF7256')"></button>
+                    <td><button style="background-color: #FF4500; height: 20px; width: 20px;"
+                            onclick="color('#FF4500')"></button>
+                    <td><button style="background-color: #F4A460; height: 20px; width: 20px;"
+                            onclick="color('#F4A460')"></button>
+                    <td><button style="background-color: #FF8000; height: 20px; width: 20px;"
+                            onclick="color('FF8000')"></button>
+                    <td><button style="background-color: #FFD700; height: 20px; width: 20px;"
+                            onclick="color('#FFD700')"></button>
+                    <td><button style="background-color: #8B864E; height: 20px; width: 20px;"
+                            onclick="color('#8B864E')"></button>
+                    <td><button style="background-color: #9ACD32; height: 20px; width: 20px;"
+                            onclick="color('#9ACD32')"></button>
+                    <td><button style="background-color: #66CD00; height: 20px; width: 20px;"
+                            onclick="color('#66CD00')"></button>
+                    <td><button style="background-color: #BDFCC9; height: 20px; width: 20px;"
+                            onclick="color('#BDFCC9')"></button>
+                    <td><button style="background-color: #76EEC6; height: 20px; width: 20px;"
+                            onclick="color('#76EEC6')"></button>
+                    <td><button style="background-color: #40E0D0; height: 20px; width: 20px;"
+                            onclick="color('#40E0D0')"></button>
+                    <td><button style="background-color: #E0EEEE; height: 20px; width: 20px;"
+                            onclick="color('#E0EEEE')"></button>
+                    <td><button style="background-color: #98F5FF; height: 20px; width: 20px;"
+                            onclick="color('#98F5FF')"></button>
+                    <td><button style="background-color: #33A1C9; height: 20px; width: 20px;"
+                            onclick="color('#33A1C9')"></button>
+                    <td><button style="background-color: #F0F8FF; height: 20px; width: 20px;"
+                            onclick="color('#F0F8FF')"></button>
+                    <td><button style="background-color: #4682B4; height: 20px; width: 20px;"
+                            onclick="color('#4682B4')"></button>
+                    <td><button style="background-color: #C6E2FF; height: 20px; width: 20px;"
+                            onclick="color('#C6E2FF')"></button>
+                    <td><button style="background-color: #9B30FF; height: 20px; width: 20px;"
+                            onclick="color('#9B30FF')"></button>
+                    <td><button style="background-color: #EE82EE; height: 20px; width: 20px;"
+                            onclick="color('#EE82EE')"></button>
+                    <td><button style="background-color: #FFC0CB; height: 20px; width: 20px;"
+                            onclick="color('#FFC0CB')"></button>
+                    <td><button style="background-color: #7CFC00; height: 20px; width: 20px;"
+                            onclick="color('#7CFC00')"></button>
+                </tr>
+                <tr>
+                    <td><label>Line Width</label></td>
+                    <td><button id="pixel_plus" type="button" onclick="add_pixel()" style="width: 25px;">+</button></td>
+                    <td><button id="pixel_minus" type="button" onclick="reduce_pixel()" style="width: 25px;">-</button>
+                    </td>
+                </tr>
+            </table>
+            <div class="container">
+                <a class="btn btn-success" href="{% url 'saving_canvas' %}" role="button" id="save">Save</a>
+            </div>
+        </fieldset>
+        <br>
+        <br>
+
+        </button>
+
+        <div>
+
+            <style>
+                #toolset {
+                    width: 100px;
+                    height: 440px;
+                    position: absolute;
+                    left: 1095px;
+                    top: 115px;
+                    border: 0px solid black;
+                }
+
+                #canvas {
+                    position: absolute;
+                    left: -110px;
+                    top: 130px;
+                    margin-left: 210px;
+                }
+
+                #colorset {
+                    position: absolute;
+                    left: 365px;
+                    top: 605px;
+                    width: 860px;
+                    border: 0px solid black;
+                }
+
+                #title {
+                    position: absolute: left: 500px;
+                }
+
+                #penciltool {
+                    background: #358128;
+                    color: #f3f3f3;
+                    width: 80px;
+                    height: 25px;
+                    border: 1px solid #33842a;
+                    -webkit-border-radius: 0 15px 15px 0;
+                    -moz-border-radius: 0 15px 15px 0;
+                    box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
+                }
+
+                #linetool {
+                    background: #358128;
+                    color: #f3f3f3;
+                    width: 80px;
+                    height: 25px;
+                    border: 1px solid #33842a;
+                    -webkit-border-radius: 0 15px 15px 0;
+                    -moz-border-radius: 0 15px 15px 0;
+                    box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
+                }
+
+                #rectangletool {
+                    background: #358128;
+                    color: #f3f3f3;
+                    width: 80px;
+                    height: 25px;
+                    border: 1px solid #33842a;
+                    -webkit-border-radius: 0 15px 15px 0;
+                    -moz-border-radius: 0 15px 15px 0;
+                    box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
+                }
+
+                #circletool {
+                    background: #358128;
+                    color: #f3f3f3;
+                    width: 80px;
+                    height: 25px;
+                    border: 1px solid #33842a;
+                    -webkit-border-radius: 0 15px 15px 0;
+                    -moz-border-radius: 0 15px 15px 0;
+                    box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
+                }
+
+                #erasertool {
+                    background: #358128;
+                    color: #f3f3f3;
+                    width: 80px;
+                    height: 25px;
+                    border: 1px solid #33842a;
+                    -webkit-border-radius: 0 15px 15px 0;
+                    -moz-border-radius: 0 15px 15px 0;
+                    box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
+                }
+
+                #resettool {
+                    background: #358128;
+                    color: #f3f3f3;
+                    width: 80px;
+                    height: 25px;
+                    border: 1px solid #33842a;
+                    -webkit-border-radius: 0 15px 15px 0;
+                    -moz-border-radius: 0 15px 15px 0;
+                    box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
+                }
+            </style>
+
+            <script>
+                const canvas = document.querySelector("#canvas");
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = "white";
+                var width = canvas.width,
+                    height = canvas.height;
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                var curX, curY, prevX, prevY;
+                var hold = false;
+                var fill_value = true,
+                    stroke_value = false;
+                var canvas_data = {
+                    "pencil": [],
+                    "line": [],
+                    "rectangle": [],
+                    "circle": [],
+                    "eraser": []
+                };
+                ctx.lineWidth = 2;
+
+                function pencil() {
+                    canvas.onmousedown = function (e) {
+                        curX = e.clientX - canvas.offsetLeft;
+                        curY = e.clientY - canvas.offsetTop;
+                        hold = true;
+
+                        prevX = curX;
+                        prevY = curY;
+                        ctx.beginPath();
+                        ctx.moveTo(prevX, prevY);
+                    };
+
+                    canvas.onmousemove = function (e) {
+                        if (hold) {
+                            curX = e.clientX - canvas.offsetLeft;
+                            curY = e.clientY - canvas.offsetTop;
+                            draw();
+                        }
+                    };
+
+                    canvas.onmouseup = function (e) {
+                        hold = false;
+                    };
+
+                    canvas.onmouseout = function (e) {
+                        hold = false;
+                    };
+
+                    function draw() {
+                        ctx.lineTo(curX, curY);
+                        ctx.stroke();
+                        canvas_data.pencil.push({
+                            "startx": prevX,
+                            "starty": prevY,
+                            "endx": curX,
+                            "endy": curY,
+                            "thick": ctx.lineWidth,
+                            "color": ctx.strokeStyle
+                        });
+                    }
+                }
+
+                function color(color_value) {
+                    ctx.strokeStyle = color_value;
+                    ctx.fillStyle = color_value;
+                }
+
+                function add_pixel() {
+                    ctx.lineWidth += 1;
+                }
+
+                function reduce_pixel() {
+                    if (ctx.lineWidth == 2)
+                        return;
+                    else
+                        ctx.lineWidth -= 1;
+                }
+
+                function fill() {
+                    fill_value = true;
+                    stroke_value = false;
+                }
+
+                function outline() {
+                    fill_value = false;
+                    stroke_value = true;
+                }
+
+                function line() {
+
+                    canvas.onmousedown = function (e) {
+                        img = ctx.getImageData(0, 0, width, height);
+                        prevX = e.clientX - canvas.offsetLeft;
+                        prevY = e.clientY - canvas.offsetTop;
+                        hold = true;
+                    };
+
+                    canvas.onmousemove = function (e) {
+                        if (hold) {
+                            ctx.putImageData(img, 0, 0);
+                            curX = e.clientX - canvas.offsetLeft;
+                            curY = e.clientY - canvas.offsetTop;
+                            ctx.beginPath();
+                            ctx.moveTo(prevX, prevY);
+                            ctx.lineTo(curX, curY);
+                            ctx.stroke();
+                            canvas_data.line.push({
+                                "starx": prevX,
+                                "starty": prevY,
+                                "endx": curX,
+                                "endY": curY,
+                                "thick": ctx.lineWidth,
+                                "color": ctx.strokeStyle
+                            });
+                            ctx.closePath();
+                        }
+                    };
+
+                    canvas.onmouseup = function (e) {
+                        hold = false;
+                    };
+
+                    canvas.onmouseout = function (e) {
+                        hold = false;
+                    };
+                }
+
+                // rectangle tool
+
+                function rectangle() {
+
+                    canvas.onmousedown = function (e) {
+                        img = ctx.getImageData(0, 0, width, height);
+                        prevX = e.clientX - canvas.offsetLeft;
+                        prevY = e.clientY - canvas.offsetTop;
+                        hold = true;
+                    };
+
+                    canvas.onmousemove = function (e) {
+                        if (hold) {
+                            ctx.putImageData(img, 0, 0);
+                            curX = e.clientX - canvas.offsetLeft - prevX;
+                            curY = e.clientY - canvas.offsetTop - prevY;
+                            ctx.strokeRect(prevX, prevY, curX, curY);
+                            if (fill_value) {
+                                ctx.fillRect(prevX, prevY, curX, curY);
+                            }
+                            canvas_data.rectangle.push({
+                                "starx": prevX,
+                                "stary": prevY,
+                                "width": curX,
+                                "height": curY,
+                                "thick": ctx.lineWidth,
+                                "stroke": stroke_value,
+                                "stroke_color": ctx.strokeStyle,
+                                "fill": fill_value,
+                                "fill_color": ctx.fillStyle
+                            });
+
+                        }
+                    };
+
+                    canvas.onmouseup = function (e) {
+                        hold = false;
+                    };
+
+                    canvas.onmouseout = function (e) {
+                        hold = false;
+                    };
+                }
+
+                // circle tool
+
+                function circle() {
+
+                    canvas.onmousedown = function (e) {
+                        img = ctx.getImageData(0, 0, width, height);
+                        prevX = e.clientX - canvas.offsetLeft;
+                        prevY = e.clientY - canvas.offsetTop;
+                        hold = true;
+                    };
+
+                    canvas.onmousemove = function (e) {
+                        if (hold) {
+                            ctx.putImageData(img, 0, 0);
+                            curX = e.clientX - canvas.offsetLeft;
+                            curY = e.clientY - canvas.offsetTop;
+                            ctx.beginPath();
+                            ctx.arc(Math.abs(curX + prevX) / 2, Math.abs(curY + prevY) / 2,
+                                Math.sqrt(Math.pow(curX - prevX, 2) + Math.pow(curY - prevY, 2)) / 2, 0, Math
+                                .PI * 2,
+                                true);
+                            ctx.closePath();
+                            ctx.stroke();
+                            if (fill_value)
+                                ctx.fill();
+                            canvas_data.circle.push({
+                                "starx": prevX,
+                                "stary": prevY,
+                                "radius": curX - prevX,
+                                "thick": ctx.lineWidth,
+                                "stroke": stroke_value,
+                                "stroke_color": ctx.strokeStyle,
+                                "fill": fill_value,
+                                "fill_color": ctx.fillStyle
+                            });
+                        }
+                    };
+
+                    canvas.onmouseup = function (e) {
+                        hold = false;
+                    };
+
+                    canvas.onmouseout = function (e) {
+                        hold = false;
+                    };
+                }
+
+                // eraser tool
+
+                function eraser() {
+
+                    /*canvas.onmousedown = function (e){
+                        hold = true;
+                    };
+                        
+                    canvas.onmousemove = function (e){
+                        if (hold){
+                            curX = e.clientX - canvas.offsetLeft;
+                            curY = e.clientY - canvas.offsetTop;
+                            ctx.clearRect(curX, curY, 20, 20);
+                            canvas_data.eraser.push({ "endx": curX, "endy": curY, "thick": ctx.lineWidth });
+                        }
+                    };
+                        
+                    canvas.onmouseup = function (e){
+                        hold = false;
+                    };
+                        
+                    canvas.onmouseout = function (e){
+                        hold = false;
+                    };
+                    */
+                    canvas.onmousedown = function (e) {
+                        curX = e.clientX - canvas.offsetLeft;
+                        curY = e.clientY - canvas.offsetTop;
+                        hold = true;
+
+                        prevX = curX;
+                        prevY = curY;
+                        ctx.beginPath();
+                        ctx.moveTo(prevX, prevY);
+                    };
+
+                    canvas.onmousemove = function (e) {
+                        if (hold) {
+                            curX = e.clientX - canvas.offsetLeft;
+                            curY = e.clientY - canvas.offsetTop;
+                            draw();
+                        }
+                    };
+
+                    canvas.onmouseup = function (e) {
+                        hold = false;
+                    };
+
+                    canvas.onmouseout = function (e) {
+                        hold = false;
+                    };
+
+                    function draw() {
+                        ctx.lineTo(curX, curY);
+                        ctx.strokeStyle = "#ffffff";
+                        ctx.stroke();
+                        canvas_data.eraser.push({
+                            "startx": prevX,
+                            "starty": prevY,
+                            "endx": curX,
+                            "endy": curY,
+                            "thick": ctx.lineWidth,
+                            "color": ctx.strokeStyle
+                        });
+                    }
+                }
+
+                function reset() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    canvas_data = {
+                        "pencil": [],
+                        "line": [],
+                        "rectangle": [],
+                        "circle": [],
+                        "eraser": []
+                    };
+                }
+
+                function onSave() {
+                    canvas.toBlob((blob) => {
+                        const timestamp = Date.now().toString();
+                        const a = document.createElement('a');
+                        document.body.append(a);
+                        a.download = 'CanvaExport.png';
+                        a.href = URL.createObjectURL(blob);
+                        a.click();
+                        a.remove();
+                    })
+                }
+
+                document.querySelector('#save').addEventListener('click', onSave);
+            </script>
+
+
+            {% endblock %}

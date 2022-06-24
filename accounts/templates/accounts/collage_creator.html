@@ -1,0 +1,254 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<head>
+ <meta charset="UTF-8">
+  <title>Collage</title>
+  <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+</head>
+<style>
+    :root {
+        --bgclr: #307697;
+        --lfont: #ADDAE2;
+        --border-clr:#ADDAE2;
+    }
+
+    * {    
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif; 
+    } 
+
+    body {
+        min-height: 100vh;
+        background: var(--bgclr);
+        overflow: hidden;
+        margin: 0;
+        padding: 30px;
+        
+    }
+
+    .field {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    canvas {
+        cursor: pointer;
+        background-color: white;
+        height: 456px;
+        width: 645px;
+        border: 2px solid black;
+        border-radius: 20px;
+    }
+
+    .tools {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        margin-top: 0.5in;
+
+    }
+
+    .tools .btn-pattern{
+        align-self: center;
+        width: 100px;
+        height: 100px;
+        border: 2px solid #222;
+        cursor: pointer;
+        background: #eee;
+        font-weight: bold;
+        margin: 0 15px;
+    }
+
+    .tools .btn-misc{
+        align-self: center;
+        width: 100px;
+        height: 40px;
+        border: 2px solid #fff;
+        cursor: pointer;
+        color: white;
+        background: #222;
+        font-weight: bold;
+        margin: 0 15px;
+    }
+
+    .tools .image-input{
+        align-self: center;
+        width: 360px;
+        height: 25px;
+        border: 2px solid #fff;
+        cursor: pointer;
+        color: white;
+        background: #222;
+        font-weight: bold;
+        margin: 0 15px;
+        overflow: hidden;
+    }
+
+    .tools .file-name{
+        align-self: center;
+        width: 100px;
+        height: 40px;
+        border: 2px solid #222;
+        cursor: pointer;
+        background: #eee;
+        font-weight: bold;
+        margin: 0 15px;
+    }
+    img{
+        width: 50px;
+        height: 50px;
+    }
+
+    
+</style>
+<body>
+    <br>
+    <br>
+    <div class="field">
+        <canvas id="canvas_1" ></canvas>
+        <canvas id="canvas_2" style="display: none;"></canvas>
+        <div class="tools">
+            <input type="file" id="uploader" class="image-input" onchange="previewImage(this);" >  
+            <p style="display: none;"><img id="preview"></p>
+            <button type="button"class="btn-pattern" onclick="two_images()"><img src="{% static 'images/two-images.png' %}"></button>
+            <button type="button"class="btn-pattern" onclick="three_images()"><img src="{% static 'images/three-images.png' %}"></button>
+            <button type="button"class="btn-misc" id="reset" onclick="reset()">Clear</button>
+            <button type="button"class="btn-misc" onclick="setImage()">Set Image</button>
+            <a class="btn-misc" href="{% url 'upload_collage' request.user.id%}" style="text-decoration: none; padding-top: 8px; font-size: 14px;" role="button" id="save">Save</a>
+            
+        </div>    
+    </div>    
+
+    <script>
+        var canvas1 = document.getElementById("canvas_1");
+        var ctx = canvas1.getContext("2d");
+        var canvas1_active = 1;
+
+        var canvas2 = document.getElementById("canvas_2");
+        var ctx2 = canvas2.getContext("2d");
+        var click = 0;
+        var canvas2_active = 0;
+
+        function previewImage(input){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                document.getElementById("preview").setAttribute("src", e.target.result);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+
+        function setImage(){
+            if(canvas1_active == 1 && canvas2_active == 0)
+            {
+                if(click == 0){
+                    var x = 0;
+                    var y = 0;
+                    
+                    var width = 150;
+                    var height = 150;
+                    click = click + 1;
+                }
+                else if(click == 1){
+                    var x = 150;
+                    var y = 0;
+                    var width = 150;
+                    var height = 150;
+                    click = click + 1;
+    
+                }
+                else if(click > 1){
+                    var x = 0;
+                    var y = 0;
+                    
+                    var width = 0;
+                    var height = 0;
+                    alert("Collage is full, please reset to create again")
+                }
+                var image = document.getElementById("preview");
+                ctx.drawImage(image, x, y, width, height);
+            }
+            else if(canvas1_active == 0 && canvas2_active == 1)
+            {
+
+            }
+
+
+
+        }
+
+        function three_images(){
+            document.getElementById("canvas_1").style.display = "none";
+            document.getElementById("canvas_2").style.display = "inline";
+            canvas_1 = 0;
+            canvas_2 = 1;
+        }
+
+        function two_images(){
+            document.getElementById("canvas_1").style.display = "inline";
+            document.getElementById("canvas_2").style.display = "none";
+            canvas_1 = 1;
+            canvas_2 = 0;
+        }
+
+        function onSave(){
+            canvas.toBlob((blob) => {
+                const a = document.createElement('a');
+                document.body.append(a);
+                a.download = "CollagePic";
+                a.href = URL.createObjectURL(blob);
+                a.click();
+                a.remove();
+            })
+        }
+        document.querySelector('#save').addEventListener('click', onSave);
+
+        window.onload = function()
+        {
+            ctx.strokeStyle='black';
+            ctx.lineWidth=1;
+            for(i=0; i<=600; i=i+150)
+            {
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i, 600);
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            ctx2.strokeStyle='black';
+            ctx2.lineWidth=1;
+            for(j=0; j<=600; j=j+75)
+            {
+                ctx2.moveTo(0, j);
+                ctx2.lineTo(600, j);
+                ctx2.stroke();
+            }
+            for(i=0; i<=600; i=i+150)
+            {
+                ctx2.moveTo(i, 0);
+                ctx2.lineTo(i, 600);
+                ctx2.stroke();
+                ctx2.closePath();
+            }
+        }
+
+        function reset() {
+            if(canvas1_active == 1 && canvas2_active == 0)
+            {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            else if(canvas1_active == 0 && canvas2_active == 1)
+            {
+                ctx2.clearRect(0, 0, canvas.width, canvas.height);
+            } 
+            click = 0;
+        }
+
+        document.querySelector('#reset').addEventListener('click', reset);
+
+    </script>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<html>
+<title>Redirecting.....</title>
+<body onload="redirect()">
+</body>
+<script>
+    function redirect(){
+        alert("SAVING CANVAS ARTWORK....")
+        window.location.href = "{% url 'upload_canvas' request.user.id %}";
+    }
+</script>
+</html>
+{% endblock %}
