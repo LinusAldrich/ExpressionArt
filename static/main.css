@@ -1,0 +1,148 @@
+:root {
+    --bgclr: #307697;
+    --lfont: #ADDAE2;
+    --border-clr: #ADDAE2;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--bgclr);
+    margin: 0;
+    padding: 30px;
+}
+
+.field {
+    text-align: center;
+    margin-top: 150px;
+}
+
+
+.tools {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 1in;
+
+}
+
+.tools .clr-fld {
+    height: 40px;
+    width: 40px;
+    min-height: 40px;
+    min-width: 40px;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid var(--border-clr);
+    align-self: center;
+    margin: 0 15px;
+}
+
+.tools .btn {
+    align-self: center;
+    width: 100px;
+    height: 40px;
+    border: 2px solid var(--border-clr);
+    cursor: pointer;
+    color: var(--lfont);
+    background: var(--bgclr);
+    font-weight: bold;
+    margin: 0 15px;
+}
+
+.clr-picker {
+    align-self: center;
+    margin: 0 15px;
+    height: 30px;
+}
+
+.pen-range {
+    align-self: center;
+    margin: 0 15px;
+}
+
+.btn button {
+    padding: 9px 15px;
+    background: var(--bgclr);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s ease 0s;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: black;
+    margin-left: 30px;
+}
+
+.btn button i {
+    color: black;
+}
+
+
+
+.btn_cd button {
+    padding: 9px 15px;
+    margin-top: 50px;
+    margin-left: 50px;
+    border: 2px solid var(--border-clr);
+    color: black;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.btn_ud button {
+    padding: 9px 15px;
+    background-color: var(--bgclr);
+    border: 2px solid var(--border-clr);
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: black;
+}
+
+.btn_dd button {
+    padding: 9px 15px;
+    border: 2px solid var(--border-clr);
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-left: 10px;
+    color: black;
+}
+
+.containerz {
+    position: relative;
+    margin-left: 150px;
+    margin-right: 150px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.2);
+    margin-top: 20px;
+    border-radius: 10px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.containerz h1 {
+    font-size: 3rem;
+}
+
+.containerz .diary-content {
+    font-size: 1rem;
+    overflow: auto;
+    height: 250px;
+    width: 750px;
+}
+
+.containerz span {
+    font-size: 0.9rem;
+}
